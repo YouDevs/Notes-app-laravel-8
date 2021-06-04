@@ -16,9 +16,9 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes = Note::latest()->get();
+        $notas = Note::latest()->get();
         return view('notes.index', [
-            'notes' => $notes
+            'notas' => $notas
         ]);
     }
 
@@ -51,9 +51,10 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function show(Note $note)
+    public function show($id)
     {
-        //
+        $note = Note::find($id);
+        return view('notes.show')->with(['note' => $note]);
     }
 
     /**
@@ -62,9 +63,10 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function edit(Note $note)
+    public function edit($id)
     {
-        //
+        $note = Note::find($id);
+        return view('notes.edit', ['note' => $note]);
     }
 
     /**
@@ -74,9 +76,12 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Note $note)
+    public function update(NoteRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+        $note = Note::find($id);
+        $note->update( $validated );
+        return redirect()->route('notas.show', $note->id);
     }
 
     /**

@@ -5,12 +5,12 @@
     <div class="col-md-4">
         <h1>Listado de notas</h1>
         <a href="{{route('notas.create')}}" class="btn btn-sm btn-info">Crear Nota</a>
-        @foreach ($notes as $note)
+        @foreach ($notas as $nota)
+
         <div class="card my-4" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">{{$note->title}}</h5>
-                {{-- <p class="card-text">{{$note->content}}</p> --}}
-                <a href="#" class="btn btn-primary">Ver Nota</a>
+                <h5 class="card-title">{{$nota->title}}</h5>
+                <a href="{{route('notas.show', $nota)}}" class="btn btn-primary">Ver Nota</a>
             </div>
         </div>
         @endforeach
